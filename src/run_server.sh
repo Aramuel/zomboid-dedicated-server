@@ -157,6 +157,7 @@ function set_variables() {
     STEAM_INSTALL_FILE="/home/steam/install_server.scmd"
     BASE_GAME_DIR="/home/steam/ZomboidDedicatedServer"
     CONFIG_DIR="/home/steam/Zomboid"
+    SERVER_CONFIG_DIR="/home/steam/ServerConfig"
 
     # Set the Server Admin Password variable
     ADMIN_USERNAME=${ADMIN_USERNAME:-"admin"}
@@ -242,7 +243,7 @@ function set_variables() {
 }
 
 function overwrite_config_file() {
-  SOURCE_CONFIG="/home/steam/Config/$SERVER_NAME.ini"
+  SOURCE_CONFIG="$SERVER_CONFIG_DIR/$SERVER_NAME.ini"
   DESTINATION_CONFIG="$CONFIG_DIR/Server/$SERVER_NAME.ini"
 
   if [ -f "$SOURCE_CONFIG" ]; then

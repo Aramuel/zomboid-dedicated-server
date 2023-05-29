@@ -61,3 +61,4 @@ services:
     volumes:
       - ./ZomboidDedicatedServer:/home/steam/ZomboidDedicatedServer
       - ./ZomboidConfig:/home/steam/Zomboid/
+      - ./ServerConfig:/home/steam/ServerConfig/
