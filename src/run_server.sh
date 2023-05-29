@@ -133,7 +133,7 @@ function test_first_run() {
 function update_server() {
     printf "\n### Updating Project Zomboid Server...\n"
 
-    steamcmd.sh +runscript "$STEAM_INSTALL_FILE"
+    /root/.steam/steamcmd/steamcmd.sh +runscript "$STEAM_INSTALL_FILE"    
 
     printf "\n### Project Zomboid Server updated.\n"
 }
@@ -241,12 +241,28 @@ function set_variables() {
     SERVER_RULES_CONFIG="$CONFIG_DIR/Server/${SERVER_NAME}_SandboxVars.lua"
 }
 
+function overwrite_config_file() {
+  SOURCE_CONFIG="/home/steam/Config/$SERVER_NAME.ini"
+  DESTINATION_CONFIG="$CONFIG_DIR/Server/$SERVER_NAME.ini"
+
+  if [ -f "$SOURCE_CONFIG" ]; then
+    cp "$SOURCE_CONFIG" "$DESTINATION_CONFIG"    
+    printf "\n### Config overwritten successfully.\n"
+  else 
+    printf "\n### Source config file does not exist.\n"
+    cp "$DESTINATION_CONFIG" "$SOURCE_CONFIG"
+    printf "\n### Created config file on host.\n"
+
+  fi
+}
+
 ## Main
 set_variables
 apply_preinstall_config
 update_server
 test_first_run
 apply_postinstall_config
+overwrite_config_file
 
 # Intercept termination signals to stop the server gracefully
 trap shutdown SIGTERM SIGINT
