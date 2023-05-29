@@ -22,7 +22,7 @@
 #######################################################################
 
 # Base Image
-ARG BASE_IMAGE="steamcmd/steamcmd:latest"
+ARG BASE_IMAGE="steamcmd/steamcmd:ubuntu-22"
 
 FROM ${BASE_IMAGE}
 
