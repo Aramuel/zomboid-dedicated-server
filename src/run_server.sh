@@ -243,18 +243,20 @@ function set_variables() {
 }
 
 function overwrite_config_file() {
-  SOURCE_CONFIG="$SERVER_CONFIG_DIR/$SERVER_NAME.ini"
-  DESTINATION_CONFIG="$CONFIG_DIR/Server/$SERVER_NAME.ini"
-
-  if [ -f "$SOURCE_CONFIG" ]; then
-    cp "$SOURCE_CONFIG" "$DESTINATION_CONFIG"    
-    printf "\n### Config overwritten successfully.\n"
-  else 
-    printf "\n### Source config file does not exist.\n"
-    cp "$DESTINATION_CONFIG" "$SOURCE_CONFIG"
-    printf "\n### Created config file on host.\n"
-
-  fi
+    CONFIGS=(".ini" "_SandboxVars.lua" "_spawnpoints.lua" "_spawnregions.lua")  
+    for CONFIG_FILE in "${CONFIGS[@]}"
+    do        
+        SOURCE_CONFIG="$SERVER_CONFIG_DIR/$SERVER_NAME$CONFIG_FILE"
+        DESTINATION_CONFIG="$CONFIG_DIR/Server/$SERVER_NAME$CONFIG_FILE"
+        if [ -f "$SOURCE_CONFIG" ]; then
+            cp "$SOURCE_CONFIG" "$DESTINATION_CONFIG"    
+            printf "\n### Config overwritten successfully.\n"
+        else 
+            printf "\n### Source config file does not exist.\n"
+            cp "$DESTINATION_CONFIG" "$SOURCE_CONFIG"
+            printf "\n### Created config file on host.\n"
+        fi
+    done 
 }
 
 ## Main
